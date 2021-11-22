@@ -11,7 +11,10 @@ public class Context implements IPromotion{
   
   @Override
   public int apply(List<ProductCart> cartList) {
-    return 0;
+    //default calculation has to be applied after promotions apply
+    promotions.add(new NoPromotionProduct());
+    List<ProductCart> list = new ArrayList<>(cartList);
+    return promotions.stream().reduce(0, (partial, promotion) -> (partial + promotion.apply(list)), Integer::sum);
   }
   
   public void add(IPromotion promotion) {

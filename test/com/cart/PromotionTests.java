@@ -93,6 +93,20 @@ public class PromotionTests {
      */
     @Test
     public void scenarioC() {
-        fail("Not yet implemented");
+        //Given
+        List<ProductCart> result = mockScenarioC();
+        //When
+        int totalPrice = context.apply(result);
+        //Then
+        assertTrue(totalPrice == 280);
+    }
+
+    private List<ProductCart> mockScenarioC() {
+        List<ProductCart> result = new ArrayList<ProductCart>();
+        result.add(new ProductCart(new Product(PRODUCT_A.getCode(), PRODUCT_A.getPrice()), 3));
+        result.add(new ProductCart(new Product(PRODUCT_B.getCode(), PRODUCT_B.getPrice()), 5));
+        result.add(new ProductCart(new Product(PRODUCT_C.getCode(), PRODUCT_C.getPrice()), 1));
+        result.add(new ProductCart(new Product(PRODUCT_C.getCode(), PRODUCT_D.getPrice()), 1));
+        return result;
     }
 }

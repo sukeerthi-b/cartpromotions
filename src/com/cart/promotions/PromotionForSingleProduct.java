@@ -20,6 +20,7 @@ public class PromotionForSingleProduct implements IPromotion{
 
     List<ProductCart> list = cartList.stream().filter(cart -> this.code.equals(cart.getProduct().getCode())).collect(Collectors.toList());
     if (list.size() == 1 && list.get(0).getCount() >= items) {
+
       ProductCart discountCart = list.get(0);
       int discountedProductPrice = ((discountCart.getCount() / items) * this.discountPrice)
               + (discountCart.getCount() % items * discountCart.getProduct().getPrice());
@@ -27,6 +28,10 @@ public class PromotionForSingleProduct implements IPromotion{
       return discountedProductPrice;
     }
     return 0;
+  }
+
+  private boolean isValidate(List<ProductCart> list) {
+    return true;
   }
 
 }

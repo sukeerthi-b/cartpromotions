@@ -17,6 +17,7 @@ public class PromotionForSingleProduct implements IPromotion{
   }
 
   public int apply(List<ProductCart> cartList) {
+
     List<ProductCart> list = cartList.stream().filter(cart -> this.code.equals(cart.getProduct().getCode())).collect(Collectors.toList());
     if (list.size() == 1 && list.get(0).getCount() >= items) {
       ProductCart discountCart = list.get(0);
@@ -27,4 +28,5 @@ public class PromotionForSingleProduct implements IPromotion{
     }
     return 0;
   }
+
 }

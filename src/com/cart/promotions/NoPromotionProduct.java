@@ -8,6 +8,10 @@ public class NoPromotionProduct implements IPromotion{
 
   @Override
   public int apply(List<ProductCart> cartList) {
-    return 0;
+    if(cartList == null) {
+      return 0;
+    }
+    return  cartList.stream()
+        .reduce(0, (partialvalue, cart) -> partialvalue + cart.getProduct().getPrice() * cart.getCount(), Integer::sum);
   }
 }

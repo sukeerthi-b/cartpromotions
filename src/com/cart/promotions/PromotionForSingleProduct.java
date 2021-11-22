@@ -1,9 +1,7 @@
 package com.cart.promotions;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.cart.model.ProductCart;
 
@@ -19,6 +17,14 @@ public class PromotionForSingleProduct implements IPromotion{
   }
 
   public int apply(List<ProductCart> cartList) {
+    List<ProductCart> list = cartList.stream().filter(cart -> this.code.equals(cart.getProduct().getCode())).collect(Collectors.toList());
+    if (list.size() == 1 && list.get(0).getCount() >= items) {
+      ProductCart discountCart = list.get(0);
+      int discountedProductPrice = ((discountCart.getCount() / items) * this.discountPrice)
+              + (discountCart.getCount() % items * discountCart.getProduct().getPrice());
+      cartList.remove(list.get(0));
+      return discountedProductPrice;
+    }
     return 0;
   }
 }
